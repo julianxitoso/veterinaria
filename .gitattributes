@@ -1,0 +1,3 @@
+# Normaliza finales de línea; los scripts de bash del servidor deben ser LF
+* text=auto
+*.sh text eol=lf

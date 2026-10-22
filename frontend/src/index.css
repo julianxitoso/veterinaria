@@ -1,0 +1,73 @@
+@import 'tailwindcss';
+
+/* --brand lo define cada clínica en tiempo de ejecución (ver useTenantStore) */
+:root {
+  --brand: #0d9488;
+}
+
+@theme inline {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --color-brand: var(--brand);
+  --color-brand-dark: color-mix(in oklab, var(--brand) 78%, black);
+  /* tintes suaves para fondos, estados activos y realces */
+  --color-brand-light: color-mix(in oklab, var(--brand) 9%, white);
+  --color-brand-soft: color-mix(in oklab, var(--brand) 16%, white);
+
+  /* neutros cálidos: base de todo el diseño */
+  --color-canvas: #f7f7f5;
+  --color-line: #ebebe8;
+  --color-line-strong: #dcdcd6;
+  --color-ink: #1f2328;
+  --color-muted: #6b7075;
+
+  --shadow-card: 0 1px 2px rgb(16 24 40 / 0.04), 0 1px 3px rgb(16 24 40 / 0.03);
+  --shadow-pop: 0 12px 32px -8px rgb(16 24 40 / 0.18), 0 4px 8px -4px rgb(16 24 40 / 0.06);
+
+  --animate-fade-in: fade-in 0.18s ease-out;
+  --animate-pop-in: pop-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-[14px] text-ink;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  /* cifras alineadas en tablas, montos y horas */
+  table,
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* los hijos de una grilla pueden encogerse: sin esto, una tabla o un texto
+     largo ensancha la columna y la página se sale de la pantalla en celular */
+  .grid > * {
+    min-width: 0;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--brand) 22%, white);
+  }
+
+  /* barras de desplazamiento discretas */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #d6d6d1 transparent;
+  }
+}

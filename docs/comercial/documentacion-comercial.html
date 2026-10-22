@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Plataforma de gestión veterinaria · Documentación comercial</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: Letter; margin: 18mm 17mm 18mm 17mm; }
+  :root {
+    --brand: #0d9488; --brand-dark: #0b7a70; --brand-light: #e8f5f3;
+    --ink: #1f2328; --muted: #6b7075; --line: #e7e6e2; --canvas: #f7f7f5;
+    --amber: #b45309; --amber-bg: #fdf6ea; --rose: #be123c; --rose-bg: #fdf1f3;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', 'Segoe UI', sans-serif; color: var(--ink); font-size: 10.5pt; line-height: 1.55; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  h1, h2, h3, h4 { margin: 0; letter-spacing: -0.01em; }
+  p { margin: 0 0 8px; }
+  ul { margin: 4px 0 10px; padding-left: 18px; }
+  li { margin-bottom: 3px; }
+  strong { font-weight: 600; }
+
+  .page-break { break-before: page; }
+  .avoid { break-inside: avoid; }
+
+  /* portada */
+  .cover { height: 240mm; display: flex; flex-direction: column; justify-content: space-between; padding: 6mm 2mm; }
+  .cover .badge { display: inline-flex; align-items: center; gap: 8px; font-size: 9.5pt; color: var(--brand-dark); background: var(--brand-light); padding: 5px 12px; border-radius: 999px; font-weight: 500; }
+  .cover h1 { font-size: 34pt; line-height: 1.1; margin-top: 18mm; }
+  .cover h1 span { color: var(--brand); }
+  .cover .lead { font-size: 13pt; color: var(--muted); max-width: 140mm; margin-top: 6mm; }
+  /* altura máxima: en una ventana ancha la imagen no puede crecer sobre el texto */
+  .cover img { width: 100%; max-height: 115mm; object-fit: cover; object-position: top left; border-radius: 10px; border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(16,24,40,.10); }
+  .shot { max-height: 125mm; object-fit: cover; object-position: top left; }
+
+  /* vista en pantalla (navegador o editor): hojas de ancho carta, sin alturas fijas de impresión */
+  @media screen {
+    html { background: #e9e8e4; }
+    body { max-width: 216mm; margin: 10mm auto; background: #fff; padding: 18mm 17mm; box-shadow: 0 10px 40px rgba(16,24,40,.12); border-radius: 6px; }
+    .cover { height: auto; gap: 12mm; }
+    .page-break { margin-top: 16mm; padding-top: 12mm; border-top: 1px dashed var(--line); }
+  }
+  .cover .meta { display: flex; justify-content: space-between; font-size: 9pt; color: var(--muted); border-top: 1px solid var(--line); padding-top: 4mm; }
+
+  /* secciones */
+  .section-label { font-size: 8.5pt; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--brand); margin-bottom: 2mm; }
+  h2 { font-size: 20pt; margin-bottom: 4mm; }
+  h3 { font-size: 13pt; margin: 6mm 0 2mm; }
+  h4 { font-size: 10.5pt; margin: 3mm 0 1mm; }
+  .intro { font-size: 11.5pt; color: #3b3f44; margin-bottom: 5mm; }
+  .muted { color: var(--muted); }
+  .small { font-size: 9pt; }
+
+  .shot { width: 100%; border-radius: 8px; border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(16,24,40,.08); margin: 2mm 0 4mm; }
+  .shot.crop { height: 92mm; object-fit: cover; object-position: top; }
+  .caption { font-size: 8.5pt; color: var(--muted); margin-top: -2mm; margin-bottom: 4mm; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; }
+  .card { border: 1px solid var(--line); border-radius: 10px; padding: 4mm 5mm; background: #fff; }
+  .card h4 { margin-top: 0; }
+  .card.soft { background: var(--canvas); }
+
+  .value { display: flex; gap: 3mm; align-items: flex-start; }
+  .value .num { flex: none; width: 7mm; height: 7mm; border-radius: 7px; background: var(--brand-light); color: var(--brand-dark); font-weight: 700; font-size: 9.5pt; display: flex; align-items: center; justify-content: center; }
+
+  .pitch { border-left: 3px solid var(--brand); background: var(--brand-light); padding: 3mm 4mm; border-radius: 0 8px 8px 0; margin: 3mm 0 5mm; font-size: 10pt; }
+  .pitch b { color: var(--brand-dark); }
+  .warn { border-left: 3px solid var(--amber); background: var(--amber-bg); padding: 3mm 4mm; border-radius: 0 8px 8px 0; margin: 3mm 0; font-size: 10pt; }
+  .warn b { color: var(--amber); }
+
+  /* flujo */
+  .flow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2mm; margin: 4mm 0 6mm; }
+  .flow .step { border: 1px solid var(--line); border-radius: 10px; padding: 3mm; text-align: center; background: #fff; position: relative; }
+  .flow .step .n { width: 7mm; height: 7mm; border-radius: 999px; background: var(--brand); color: #fff; font-weight: 700; font-size: 9pt; display: flex; align-items: center; justify-content: center; margin: 0 auto 2mm; }
+  .flow .step b { display: block; font-size: 9.5pt; }
+  .flow .step span { font-size: 8pt; color: var(--muted); line-height: 1.35; display: block; margin-top: 1mm; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 9pt; margin: 2mm 0 5mm; }
+  th { text-align: left; font-weight: 600; color: var(--muted); border-bottom: 1px solid var(--line); padding: 2mm 2mm; font-size: 8.5pt; }
+  td { border-bottom: 1px solid var(--line); padding: 2mm 2mm; vertical-align: top; }
+  td.c, th.c { text-align: center; }
+  .yes { color: var(--brand-dark); font-weight: 700; }
+  .no { color: #c4c4bf; }
+  .part { color: var(--amber); font-weight: 600; }
+
+  .faq { margin-bottom: 3.5mm; break-inside: avoid; }
+  .faq .q { font-weight: 600; }
+  .faq .a { color: #3b3f44; }
+
+  .tag { display: inline-block; font-size: 8pt; font-weight: 600; padding: 1px 7px; border-radius: 999px; }
+  .tag.done { background: var(--brand-light); color: var(--brand-dark); }
+  .tag.next { background: var(--amber-bg); color: var(--amber); }
+  .tag.later { background: #f1f0ed; color: var(--muted); }
+
+  .script li { margin-bottom: 2mm; }
+  .footer-note { font-size: 8.5pt; color: var(--muted); border-top: 1px solid var(--line); padding-top: 3mm; margin-top: 6mm; }
+</style>
+</head>
+<body>
+
+<!-- ============ PORTADA ============ -->
+<section class="cover">
+  <div>
+    <span class="badge">Documentación para el equipo comercial</span>
+    <h1>Plataforma de gestión<br>para <span>clínicas veterinarias</span></h1>
+    <p class="lead">Qué es, qué hace cada módulo, cómo presentarlo a una clínica y qué responder a las preguntas más comunes.</p>
+  </div>
+  <img src="img/inicio.png" alt="Pantalla de inicio del sistema">
+  <div class="meta">
+    <span>Versión del producto: MVP + agenda · Octubre de 2026</span>
+    <span>Documento vivo: se actualiza con cada nueva fase</span>
+  </div>
+</section>
+
+<!-- ============ RESUMEN ============ -->
+<section class="page-break">
+  <div class="section-label">1 · En una página</div>
+  <h2>¿Qué estamos vendiendo?</h2>
+  <p class="intro">Un sistema en la nube, que se usa desde el navegador, para que una clínica veterinaria maneje <strong>todo su día a día en un solo lugar</strong>: citas, historia clínica, recetas, inventario de medicamentos, facturación y cobros. Cada clínica tiene su propio espacio, con su logo y sus colores, en una dirección propia (por ejemplo <em>miclinica.plataforma.com</em>).</p>
+
+  <h3>¿Para quién es?</h3>
+  <div class="grid-3 avoid">
+    <div class="card soft"><h4>Clínicas pequeñas y medianas</h4><p class="small">De 1 a 10 personas, que hoy llevan la información en cuadernos, Excel o programas separados.</p></div>
+    <div class="card soft"><h4>Veterinarios independientes</h4><p class="small">Que atienden con agenda y necesitan historia clínica ordenada y recetas profesionales.</p></div>
+    <div class="card soft"><h4>Clínicas con farmacia o tienda</h4><p class="small">Que venden medicamentos, alimentos o accesorios y necesitan controlar stock y vencimientos.</p></div>
+  </div>
+
+  <h3>El problema que resolvemos</h3>
+  <ul>
+    <li>La historia clínica está en papel o repartida: <strong>cuesta encontrar qué se le hizo a la mascota la última vez</strong>.</li>
+    <li>Las vacunas vencen y nadie se entera; los controles se olvidan.</li>
+    <li>El inventario no cuadra: medicamentos vencidos, faltantes, ventas que no descuentan.</li>
+    <li>La agenda vive en un cuaderno o en el WhatsApp de la recepcionista.</li>
+    <li>No hay forma de saber quién hizo qué (descuentos, anulaciones, cambios de precio).</li>
+  </ul>
+
+  <h3>Seis razones para elegirnos</h3>
+  <div class="grid-2 avoid">
+    <div class="value"><span class="num">1</span><div><strong>Pensado para el médico.</strong> La ficha de cada mascota muestra de un vistazo alergias, vacunas vencidas, controles pendientes y la consulta en curso.</div></div>
+    <div class="value"><span class="num">2</span><div><strong>Todo conectado.</strong> La cita se vuelve consulta, la consulta se vuelve receta y factura, y la factura descuenta el inventario. Sin digitar dos veces.</div></div>
+    <div class="value"><span class="num">3</span><div><strong>Agenda en línea.</strong> Los dueños piden cita desde un enlace, sin crear cuenta, y la clínica confirma por WhatsApp con un clic.</div></div>
+    <div class="value"><span class="num">4</span><div><strong>Con la marca de la clínica.</strong> Logo, colores y datos legales en la pantalla, en la agenda pública y en todos los PDF.</div></div>
+    <div class="value"><span class="num">5</span><div><strong>Control y seguridad.</strong> Permisos por rol, registro de auditoría y una historia clínica que nunca se borra.</div></div>
+    <div class="value"><span class="num">6</span><div><strong>Nada que instalar.</strong> Funciona en el navegador del computador, la tableta o el celular.</div></div>
+  </div>
+</section>
+
+<!-- ============ FLUJO ============ -->
+<section class="page-break">
+  <div class="section-label">2 · Cómo se usa</div>
+  <h2>Un día en la clínica, de punta a punta</h2>
+  <p class="intro">Este es el recorrido que más convence en una demo, porque muestra que <strong>cada paso alimenta al siguiente</strong>.</p>
+
+  <div class="flow avoid">
+    <div class="step"><div class="n">1</div><b>Cita</b><span>El dueño agenda en línea o la recepción la crea</span></div>
+    <div class="step"><div class="n">2</div><b>Confirmación</b><span>Se confirma y se avisa por WhatsApp con un clic</span></div>
+    <div class="step"><div class="n">3</div><b>Consulta</b><span>El médico la inicia desde la cita y registra todo</span></div>
+    <div class="step"><div class="n">4</div><b>Documentos</b><span>Receta y orden de exámenes en PDF</span></div>
+    <div class="step"><div class="n">5</div><b>Factura</b><span>Se arma sola con la consulta y lo que se lleva</span></div>
+    <div class="step"><div class="n">6</div><b>Cobro</b><span>Pago y descuento automático del inventario</span></div>
+  </div>
+
+  <div class="grid-2 avoid">
+    <div class="card">
+      <h4>Lo que pasa automáticamente</h4>
+      <ul class="small">
+        <li>Al iniciar la consulta desde la cita, esta queda <strong>atendida</strong>.</li>
+        <li>El peso registrado en la consulta actualiza el peso de la mascota.</li>
+        <li>Las vacunas aplicadas quedan en la historia con su <strong>próxima dosis</strong>.</li>
+        <li>Al facturar, la consulta se <strong>finaliza</strong> y el stock se descuenta.</li>
+        <li>Si un producto no alcanza, la factura no se emite y se avisa.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Lo que ya no se olvida</h4>
+      <ul class="small">
+        <li>Alergias, visibles en cada pantalla donde se atiende a la mascota.</li>
+        <li>Vacunas y desparasitaciones vencidas o por vencer.</li>
+        <li>Controles programados que el paciente no ha cumplido.</li>
+        <li>Productos con stock bajo, por vencer o vencidos.</li>
+        <li>Facturas con saldo pendiente por cobrar.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Pantalla de inicio</h3>
+  <p>Al entrar, cada persona ve un tablero con lo que le importa según su rol (es la imagen de la portada): citas del día, consultas en curso, ventas del día y del mes, cartera por cobrar, próximas citas, accesos rápidos y alertas de inventario. Una recepcionista no ve las ventas; un asistente no ve la facturación.</p>
+  <div class="pitch"><b>Cómo venderlo:</b> "Abra el sistema en la mañana y en 10 segundos sabe cómo va su día: a quién atiende, cuánto ha vendido y qué le falta en la bodega."</div>
+</section>
+
+<!-- ============ MÓDULOS: CITAS ============ -->
+<section class="page-break">
+  <div class="section-label">3 · Módulos en detalle</div>
+  <h2>Citas y agenda en línea</h2>
+  <p class="intro">La agenda del día muestra <strong>una columna por veterinario</strong>, con sus horarios de atención. Las zonas rayadas son horas en que no atiende, y una línea roja marca la hora actual.</p>
+  <img class="shot" src="img/agenda.png" alt="Agenda por veterinario">
+
+  <div class="grid-2 avoid">
+    <div>
+      <h4>Para la recepción</h4>
+      <ul class="small">
+        <li>Un clic en un espacio libre crea la cita.</li>
+        <li>Estados: solicitada, confirmada, atendida, cancelada, no asistió.</li>
+        <li>Reprogramar o cambiar de veterinario; el sistema <strong>nunca deja cruzar dos citas</strong> del mismo médico.</li>
+        <li>Horario semanal por veterinario, con varios bloques por día (mañana y tarde).</li>
+        <li>Duración de la cita configurable (15, 30, 45 minutos…).</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Aviso por WhatsApp</h4>
+      <ul class="small">
+        <li>Al confirmar, crear o cancelar una cita aparece el botón <strong>"Enviar por WhatsApp"</strong>.</li>
+        <li>Abre el chat del cliente con el mensaje ya escrito: mascota, fecha, hora, veterinario y dirección.</li>
+        <li>También hay botón de <strong>recordatorio</strong> para el día anterior.</li>
+        <li>La clínica personaliza los mensajes con su propio tono.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="page-break">
+  <h3 style="margin-top:0">Agenda en línea para los dueños de mascotas</h3>
+  <p>Cada clínica tiene un enlace público (por ejemplo <em>miclinica.plataforma.com/agendar</em>) para compartir en WhatsApp, Instagram o Google Maps. El dueño, <strong>sin crear cuenta ni contraseña</strong>, elige veterinario (o "cualquiera disponible"), día y hora libre, y deja sus datos y los de su mascota.</p>
+  <div class="grid-2 avoid">
+    <img class="shot" src="img/agenda-publica.png" alt="Agenda pública">
+    <div>
+      <ul class="small">
+        <li>Solo muestra horarios <strong>realmente libres</strong>, según el horario de cada médico.</li>
+        <li>La solicitud llega a la clínica como <strong>"Solicitada"</strong> y aparece destacada en la agenda para confirmarla.</li>
+        <li>Si el dueño ya es cliente, el sistema lo <strong>reconoce</strong> por cédula o teléfono.</li>
+        <li>Si es nuevo, el cliente y la mascota se registran solos <strong>al confirmar</strong> (así no entra información basura).</li>
+        <li>La clínica define con cuánta anticipación y hasta cuántos días adelante se puede reservar, o apaga la agenda en línea.</li>
+        <li>Protegido contra abuso: límite de intentos y filtro anti-robots.</li>
+      </ul>
+      <div class="pitch"><b>Cómo venderlo:</b> "Sus clientes pueden pedir cita a las 11 de la noche, sin llamar. Usted la confirma en la mañana con un clic y les llega por WhatsApp."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PACIENTES Y CONSULTAS ============ -->
+<section class="page-break">
+  <h2>Pacientes, clientes e historia clínica</h2>
+  <p class="intro">La <strong>ficha de la mascota</strong> es la pantalla más importante para el médico: en un vistazo ve quién es, sus alertas y toda su historia.</p>
+  <img class="shot" src="img/ficha-mascota.png" alt="Ficha de la mascota">
+
+  <div class="grid-2 avoid">
+    <div>
+      <h4>Resumen clínico (arriba)</h4>
+      <ul class="small">
+        <li>Alergias, en rojo, siempre visibles.</li>
+        <li>Consulta en curso, con botón "Continuar".</li>
+        <li>Próxima cita, control programado o vencido.</li>
+        <li>Vacunas y desparasitaciones vencidas o próximas a vencer.</li>
+      </ul>
+      <h4>Acciones rápidas</h4>
+      <ul class="small">
+        <li><strong>Nueva consulta</strong> (botón principal) y <strong>Agendar cita</strong>.</li>
+        <li>Registro rápido de <strong>vacuna, desparasitación, procedimiento o nota</strong>, sin abrir una consulta completa.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Historia clínica</h4>
+      <ul class="small">
+        <li>Línea de tiempo con todo: consultas, vacunas, procedimientos, notas y evolución.</li>
+        <li>Filtros: consultas, vacunas y desparasitación, procedimientos, notas.</li>
+        <li><strong>Nunca se borra</strong>: un registro equivocado se archiva y sigue consultable.</li>
+        <li>Adjuntos privados: exámenes, radiografías, PDF, Word, Excel.</li>
+        <li>Historia clínica completa <strong>en PDF</strong> para entregar al dueño o a otro colega.</li>
+      </ul>
+      <h4>Clientes</h4>
+      <ul class="small">
+        <li>Búsqueda por nombre, cédula, teléfono o email; una persona puede tener varias mascotas.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="page-break">
+  <h2>Consultas</h2>
+  <p class="intro">El formulario muestra lo esencial y deja lo opcional plegado, para que el médico registre una consulta en minutos.</p>
+  <img class="shot crop" src="img/consulta.png" alt="Formulario de consulta">
+  <div class="grid-2 avoid">
+    <div>
+      <h4>Siempre visible</h4>
+      <ul class="small">
+        <li>Motivo y anamnesis (lo que cuenta el dueño).</li>
+        <li>Signos vitales: peso, temperatura, frecuencia cardiaca y respiratoria.</li>
+        <li>Hallazgos del examen físico, diagnóstico y tratamiento.</li>
+      </ul>
+      <h4>Secciones que se abren si se necesitan</h4>
+      <ul class="small">
+        <li><strong>Medicamentos</strong>: dosis, frecuencia, duración y vía. Si están en inventario se vinculan y se marca <strong>"Lo lleva"</strong> con la cantidad, para facturarlo.</li>
+        <li><strong>Exámenes solicitados</strong>, con registro posterior del resultado.</li>
+        <li><strong>Vacunas o desparasitación aplicadas</strong>, con su próxima dosis.</li>
+        <li>Indicaciones para el dueño y fecha de control.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Dos botones al final</h4>
+      <ul class="small">
+        <li><strong>Guardar y seguir después</strong>: la consulta queda "en curso" (por ejemplo, mientras llegan exámenes).</li>
+        <li><strong>Finalizar consulta</strong>: queda cerrada. Después solo se agregan notas de evolución y resultados, para proteger la historia.</li>
+      </ul>
+      <h4>Documentos que genera</h4>
+      <ul class="small">
+        <li><strong>Fórmula médica / receta</strong> con medicamentos, indicaciones, control y firma.</li>
+        <li><strong>Orden de exámenes</strong>.</li>
+        <li>Todos con el logo, NIT, dirección y color de la clínica.</li>
+      </ul>
+      <div class="pitch"><b>Cómo venderlo:</b> "La receta sale impresa, legible y con su logo. Y queda guardada: la próxima vez sabe exactamente qué le formuló."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INVENTARIO ============ -->
+<section class="page-break">
+  <h2>Inventario</h2>
+  <p class="intro">Control de medicamentos, vacunas, alimentos e insumos, con alertas para que nada se venza ni se agote sin aviso.</p>
+  <img class="shot" src="img/inventario.png" alt="Inventario">
+  <div class="grid-2 avoid">
+    <div>
+      <ul class="small">
+        <li>Producto con código, categoría, proveedor, unidad, costo, precio, IVA (0, 5 o 19%), stock mínimo y vencimiento. El <strong>margen de ganancia</strong> se calcula solo.</li>
+        <li><strong>Entradas</strong> de compra con factura del proveedor, lote y vencimiento.</li>
+        <li><strong>Salidas</strong> con motivo (uso interno, vencido, dañado, devolución).</li>
+        <li><strong>Ajuste por conteo</strong>: se escribe lo que hay en la bodega y el sistema registra la diferencia.</li>
+      </ul>
+    </div>
+    <div>
+      <ul class="small">
+        <li>Alertas de <strong>stock bajo</strong>, <strong>por vencer</strong> (30 días) y <strong>vencidos con existencias</strong>.</li>
+        <li>Kardex: historial de cada movimiento, con quién lo hizo y el saldo resultante.</li>
+        <li>El stock <strong>nunca queda negativo</strong> y las ventas se descuentan solas al facturar.</li>
+        <li>Los productos no se borran: se desactivan y conservan su historial.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FACTURACIÓN ============ -->
+<section class="page-break">
+  <h2>Facturación y cobros</h2>
+  <p class="intro">Desde la consulta, el botón <strong>"Facturar"</strong> arma la cuenta sola: el servicio de consulta más los productos que el cliente se lleva. La recepción revisa, ajusta y emite.</p>
+  <img class="shot" src="img/factura.png" alt="Detalle de factura">
+  <div class="grid-2 avoid">
+    <div>
+      <ul class="small">
+        <li>Factura por consulta, venta de mostrador o combinada; catálogo de <strong>servicios</strong> con precio (consulta, vacunación, cirugía…).</li>
+        <li><strong>Descuento</strong> por línea e <strong>IVA</strong> por producto o servicio; totales automáticos.</li>
+        <li><strong>Numeración consecutiva</strong> propia de cada clínica (prefijo y número).</li>
+        <li>Estados: borrador (editable), emitida, anulada (con motivo, devuelve el stock y nunca se borra).</li>
+      </ul>
+    </div>
+    <div>
+      <ul class="small">
+        <li>Pagos en efectivo, tarjeta, transferencia, Nequi o Daviplata; <strong>abonos parciales</strong> y saldo pendiente.</li>
+        <li>Se puede cobrar en el mismo momento de emitir.</li>
+        <li>Factura en <strong>PDF</strong> con la marca de la clínica.</li>
+        <li>Filtro de facturas <strong>por cobrar</strong> y cartera total en el tablero.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="warn"><b>Importante:</b> hoy la factura es un <b>comprobante interno de venta</b>. <b>No es factura electrónica ante la DIAN</b> (está en el plan de desarrollo). El PDF lo indica en su pie de página. No prometer facturación electrónica todavía.</div>
+</section>
+
+<!-- ============ ADMINISTRACIÓN ============ -->
+<section class="page-break">
+  <h2>Administración, marca y seguridad</h2>
+
+  <div class="grid-2 avoid">
+    <div class="card">
+      <h4>Usuarios</h4>
+      <ul class="small">
+        <li>Crear usuarios, asignar rol, restablecer contraseña, ver el último ingreso.</li>
+        <li>Desactivar a alguien <strong>cierra sus sesiones al instante</strong>.</li>
+        <li>La clínica nunca se queda sin un administrador.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Roles y permisos</h4>
+      <ul class="small">
+        <li>Cinco roles listos: administrador, veterinario, recepcionista, asistente, contador.</li>
+        <li>Matriz para ajustar qué puede ver, crear, editar o anular cada rol.</li>
+        <li>Roles personalizados (por ejemplo "peluquero").</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Marca de la clínica</h4>
+      <ul class="small">
+        <li>Nombre, razón social, NIT, dirección, teléfono y email.</li>
+        <li><strong>Logo</strong> y <strong>color institucional</strong>, con vista previa.</li>
+        <li>Se reflejan en el sistema, el login, la agenda pública y los PDF.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Auditoría</h4>
+      <ul class="small">
+        <li>Registro de quién hizo qué, cuándo y desde dónde.</li>
+        <li>Ingresos (y fallidos), facturas emitidas y anuladas, pagos, ajustes de inventario, cambios de precio, permisos y configuración.</li>
+        <li>Muestra el valor <strong>antes y después</strong> de cada cambio.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Qué puede hacer cada rol (configuración inicial)</h3>
+  <table class="avoid">
+    <thead>
+      <tr><th>Módulo</th><th class="c">Administrador</th><th class="c">Veterinario</th><th class="c">Recepcionista</th><th class="c">Asistente</th><th class="c">Contador</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Pacientes y clientes</td><td class="c yes">Todo</td><td class="c yes">Ver, crear, editar</td><td class="c yes">Ver, crear, editar</td><td class="c yes">Ver, crear, editar</td><td class="c part">Ver</td></tr>
+      <tr><td>Consultas e historia</td><td class="c yes">Todo</td><td class="c yes">Todo</td><td class="c part">Ver</td><td class="c part">Ver</td><td class="c no">—</td></tr>
+      <tr><td>Citas</td><td class="c yes">Todo</td><td class="c yes">Todo</td><td class="c yes">Todo</td><td class="c yes">Todo</td><td class="c no">—</td></tr>
+      <tr><td>Inventario</td><td class="c yes">Todo</td><td class="c part">Ver</td><td class="c no">—</td><td class="c part">Ver</td><td class="c part">Ver</td></tr>
+      <tr><td>Facturación</td><td class="c yes">Todo</td><td class="c part">Ver</td><td class="c yes">Facturar y cobrar</td><td class="c no">—</td><td class="c yes">Todo (incl. anular)</td></tr>
+      <tr><td>Usuarios y configuración</td><td class="c yes">Todo</td><td class="c no">—</td><td class="c no">—</td><td class="c no">—</td><td class="c part">Ver configuración</td></tr>
+    </tbody>
+  </table>
+  <p class="small muted">Cada clínica puede cambiar estos permisos desde Usuarios → Roles y permisos.</p>
+
+  <h3 class="page-break" style="margin-top:0">Seguridad y confiabilidad</h3>
+  <ul>
+    <li><strong>Cada clínica está aislada</strong>: una clínica jamás puede ver datos de otra, ni con un enlace directo (está probado con pruebas automáticas).</li>
+    <li>La historia clínica, las facturas y los productos <strong>no se borran</strong>; se archivan o se anulan dejando rastro.</li>
+    <li>Adjuntos clínicos privados: solo se descargan con sesión iniciada en la clínica.</li>
+    <li>Más de 70 pruebas automáticas verifican las reglas del negocio en cada cambio.</li>
+  </ul>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section style="margin-top: 9mm">
+  <div class="section-label">4 · Preguntas frecuentes</div>
+  <h2>Lo que preguntan las clínicas (y qué responder)</h2>
+  <p class="intro">Respuestas honestas. Es mejor decir "está en camino" que prometer algo que aún no existe.</p>
+
+  <div class="faq"><p class="q">¿Hay que instalar algo?</p><p class="a">No. Se usa desde el navegador (Chrome, Edge, Safari) en computador, tableta o celular. Solo necesita internet.</p></div>
+  <div class="faq"><p class="q">¿Emite factura electrónica DIAN?</p><p class="a"><strong>Todavía no.</strong> Hoy emite un comprobante interno de venta en PDF. La facturación electrónica está en el plan de desarrollo. Mientras tanto, la clínica puede seguir usando su proveedor DIAN actual.</p></div>
+  <div class="faq"><p class="q">¿Los mensajes de WhatsApp salen solos?</p><p class="a">Hoy se envían <strong>con un clic</strong>: el sistema abre el chat con el mensaje listo y la persona solo pulsa "Enviar". Sale desde el WhatsApp de la clínica, así que el cliente responde a ese mismo número. El envío 100% automático (API oficial de WhatsApp) está planeado como función adicional.</p></div>
+  <div class="faq"><p class="q">¿Mis datos están separados de las otras clínicas?</p><p class="a">Sí. Cada clínica tiene su propio espacio aislado; ninguna puede ver la información de otra.</p></div>
+  <div class="faq"><p class="q">¿Puedo poner mi logo y mis colores?</p><p class="a">Sí, desde Configuración. Se ven en el sistema, en la página para agendar citas y en todos los documentos PDF.</p></div>
+  <div class="faq"><p class="q">¿Qué pasa si alguien se equivoca o borra algo?</p><p class="a">Lo clínico y lo contable no se borra: se archiva o se anula y queda registrado quién lo hizo. El administrador puede revisarlo en Auditoría.</p></div>
+  <div class="faq"><p class="q">¿Puedo controlar qué ve cada empleado?</p><p class="a">Sí. Hay roles listos (veterinario, recepción, asistente, contador) y el administrador puede ajustar los permisos de cada uno.</p></div>
+  <div class="faq"><p class="q">¿Sirve si tengo varias sedes?</p><p class="a">Hoy cada sede funciona como una clínica independiente. El manejo de varias sedes bajo una misma cuenta está en el plan de desarrollo.</p></div>
+  <div class="faq"><p class="q">¿Pueden pasar mi información actual al sistema?</p><p class="a">La migración de datos (clientes, mascotas, productos) se ofrece como parte del servicio de puesta en marcha; se evalúa según el formato en que la clínica tenga su información.</p></div>
+  <div class="faq"><p class="q">¿Tiene reportes?</p><p class="a">Hoy el tablero muestra ventas del día y del mes, cartera, citas y alertas. Los reportes detallados (financieros, de inventario, exportación a Excel) están en el plan de desarrollo.</p></div>
+</section>
+
+<!-- ============ ROADMAP Y PLANES ============ -->
+<section class="page-break">
+  <div class="section-label">5 · Estado y próximos pasos</div>
+  <h2>Qué está listo y qué viene</h2>
+  <table class="avoid">
+    <thead><tr><th style="width:42%">Funcionalidad</th><th>Estado</th><th>Notas</th></tr></thead>
+    <tbody>
+      <tr><td>Pacientes, clientes, consultas e historia clínica</td><td><span class="tag done">Listo</span></td><td>Incluye adjuntos, vacunas y documentos PDF.</td></tr>
+      <tr><td>Citas por veterinario y agenda en línea</td><td><span class="tag done">Listo</span></td><td>Con aviso por WhatsApp de un clic.</td></tr>
+      <tr><td>Inventario con alertas y kardex</td><td><span class="tag done">Listo</span></td><td></td></tr>
+      <tr><td>Facturación interna, cobros y PDF</td><td><span class="tag done">Listo</span></td><td>Comprobante interno, no DIAN.</td></tr>
+      <tr><td>Usuarios, roles, marca y auditoría</td><td><span class="tag done">Listo</span></td><td></td></tr>
+      <tr><td>Publicación en internet (servidor, dominio, SSL, copias de seguridad)</td><td><span class="tag next">Siguiente</span></td><td>Necesario para la primera clínica real y para demos en línea.</td></tr>
+      <tr><td>Uso desde el celular</td><td><span class="tag done">Listo</span></td><td>Revisado en pantalla de celular (390 px).</td></tr>
+      <tr><td>Recordatorios automáticos de citas (email)</td><td><span class="tag later">Planeado</span></td><td></td></tr>
+      <tr><td>Reportes financieros y de inventario</td><td><span class="tag later">Planeado</span></td><td>Con exportación.</td></tr>
+      <tr><td>WhatsApp automático (API oficial de Meta)</td><td><span class="tag later">Planeado</span></td><td>Requiere registro de la clínica en Meta; tiene costo por mensaje.</td></tr>
+      <tr><td>Factura electrónica DIAN</td><td><span class="tag later">Planeado</span></td><td>Prioridad comercial alta.</td></tr>
+      <tr><td>Varias sedes, pagos en línea, laboratorio</td><td><span class="tag later">Planeado</span></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Planes sugeridos (propuesta, sin precios definidos)</h3>
+  <div class="grid-3 avoid">
+    <div class="card"><h4>Básico</h4><p class="small muted">Clínica pequeña</p><ul class="small"><li>1 clínica, hasta 3 usuarios</li><li>Pacientes, consultas e historia</li><li>Inventario y facturación básica</li><li>Documentos PDF</li><li>Soporte estándar</li></ul></div>
+    <div class="card"><h4>Profesional</h4><p class="small muted">Clínica con equipo</p><ul class="small"><li>5 a 10 usuarios</li><li>Todo lo del Básico</li><li>Agenda en línea y WhatsApp</li><li>Roles personalizados y auditoría</li><li>Soporte prioritario</li></ul></div>
+    <div class="card"><h4>Premium</h4><p class="small muted">Varias sedes o alto volumen</p><ul class="small"><li>Usuarios ilimitados</li><li>Todo lo del Profesional</li><li>Funciones nuevas primero (WhatsApp automático, reportes)</li><li>Migración de datos incluida</li><li>Soporte especializado</li></ul></div>
+  </div>
+  <p class="small muted">Modalidad mensual o anual, más un servicio inicial de puesta en marcha (configuración, marca, migración y capacitación).</p>
+</section>
+
+<!-- ============ DEMO ============ -->
+<section class="page-break">
+  <div class="section-label">6 · Guion de demostración</div>
+  <h2>Demo de 10 minutos que vende</h2>
+  <p class="intro">Orden recomendado. La idea es contar la historia de <strong>una mascota real durante un día</strong>, no recorrer menús.</p>
+
+  <ol class="script">
+    <li><strong>Inicio (1 min).</strong> "Esto es lo primero que ve en la mañana": citas de hoy, ventas, cartera y alertas.</li>
+    <li><strong>Agenda en línea (1 min).</strong> Abra el enlace <em>/agendar</em> en el celular y pida una cita como si fuera un cliente. Muestre que no pide cuenta ni contraseña.</li>
+    <li><strong>Confirmar y avisar (1 min).</strong> En Citas aparece la solicitud. Confírmela y pulse "Enviar por WhatsApp": el mensaje sale listo.</li>
+    <li><strong>Ficha de la mascota (2 min).</strong> Muestre las alertas (alergias, vacuna vencida, control pendiente) y la línea de tiempo. Registre una vacuna con un clic.</li>
+    <li><strong>Consulta (2 min).</strong> Inicie la consulta desde la cita, llene signos y diagnóstico, agregue un medicamento del inventario y marque "Lo lleva". Imprima la receta en PDF.</li>
+    <li><strong>Factura (2 min).</strong> Pulse "Facturar": la cuenta ya trae la consulta y el medicamento. Emita y cobre por Nequi. Muestre que el inventario bajó solo.</li>
+    <li><strong>Cierre (1 min).</strong> Configuración: cambie el logo y el color en vivo. "Así se verá con su marca." Mencione roles y auditoría.</li>
+  </ol>
+
+  <div class="pitch"><b>Frase de cierre:</b> "Todo lo que hoy tiene en cuadernos, Excel y WhatsApp, en un solo lugar, con su marca, y sin instalar nada."</div>
+
+  <div class="warn"><b>Antes de una demo con clientes:</b> hoy el sistema corre en el equipo de desarrollo. Para demos en línea hay que completar la <b>publicación en internet</b> (siguiente fase). Coordine con el equipo técnico; los usuarios y claves de demostración están en el archivo ROADMAP.md del proyecto.</div>
+
+  <p class="footer-note">Documento generado a partir del sistema en funcionamiento; las imágenes son capturas reales con datos de demostración. Se actualiza con cada nueva fase del producto.</p>
+</section>
+
+</body>
+</html>
