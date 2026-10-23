@@ -27,7 +27,7 @@ echo "==> Modo mantenimiento"
 "$PHP" artisan down --retry=15 || true
 
 echo "==> Dependencias PHP"
-"$COMPOSER" install --no-dev --optimize-autoloader --no-interaction --no-progress
+"$PHP" "$COMPOSER" install --no-dev --optimize-autoloader --no-interaction --no-progress
 
 echo "==> Migraciones"
 "$PHP" artisan migrate --force

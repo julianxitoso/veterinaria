@@ -56,7 +56,7 @@ ln -s ~/app/backend/public ~/public_html
 cd ~/app/backend
 cp .env.production.example .env
 nano .env                 # DB_PASSWORD (y revisar el resto)
-/opt/cpanel/composer/bin/composer install --no-dev -o 2>/dev/null || composer install --no-dev -o
+php /usr/local/bin/composer install --no-dev -o
 php artisan key:generate
 
 # Instalar / actualizar
