@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Manual de uso · Plataforma de gestión veterinaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: Letter; margin: 18mm 17mm 18mm 17mm; }
+  :root {
+    --brand: #0d9488; --brand-dark: #0b7a70; --brand-light: #e8f5f3;
+    --ink: #1f2328; --muted: #6b7075; --line: #e7e6e2; --canvas: #f7f7f5;
+    --amber: #b45309; --amber-bg: #fdf6ea;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', 'Segoe UI', sans-serif; color: var(--ink); font-size: 10.5pt; line-height: 1.55; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  h1, h2, h3, h4 { margin: 0; letter-spacing: -0.01em; }
+  p { margin: 0 0 8px; }
+  ul, ol { margin: 4px 0 10px; padding-left: 20px; }
+  li { margin-bottom: 3px; }
+  strong { font-weight: 600; }
+  .page-break { break-before: page; }
+  .avoid { break-inside: avoid; }
+
+  .cover { height: 240mm; display: flex; flex-direction: column; justify-content: space-between; padding: 6mm 2mm; }
+  .cover .badge { display: inline-flex; font-size: 9.5pt; color: var(--brand-dark); background: var(--brand-light); padding: 5px 12px; border-radius: 999px; font-weight: 500; }
+  .cover h1 { font-size: 34pt; line-height: 1.1; margin-top: 18mm; }
+  .cover h1 span { color: var(--brand); }
+  .cover .lead { font-size: 13pt; color: var(--muted); max-width: 140mm; margin-top: 6mm; }
+  .cover img { width: 100%; max-height: 115mm; object-fit: cover; object-position: top left; border-radius: 10px; border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(16,24,40,.10); }
+  .cover .meta { display: flex; justify-content: space-between; font-size: 9pt; color: var(--muted); border-top: 1px solid var(--line); padding-top: 4mm; }
+
+  @media screen {
+    html { background: #e9e8e4; }
+    body { max-width: 216mm; margin: 10mm auto; background: #fff; padding: 18mm 17mm; box-shadow: 0 10px 40px rgba(16,24,40,.12); border-radius: 6px; }
+    .cover { height: auto; gap: 12mm; }
+    .page-break { margin-top: 16mm; padding-top: 12mm; border-top: 1px dashed var(--line); }
+  }
+
+  .section-label { font-size: 8.5pt; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--brand); margin-bottom: 2mm; }
+  h2 { font-size: 20pt; margin-bottom: 4mm; }
+  h3 { font-size: 13pt; margin: 6mm 0 2mm; }
+  h4 { font-size: 10.5pt; margin: 3mm 0 1mm; }
+  .intro { font-size: 11.5pt; color: #3b3f44; margin-bottom: 5mm; }
+  .muted { color: var(--muted); }
+  .small { font-size: 9pt; }
+
+  .shot { width: 100%; max-height: 72mm; object-fit: cover; object-position: top left; border-radius: 8px; border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(16,24,40,.08); margin: 2mm 0 4mm; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .card { border: 1px solid var(--line); border-radius: 10px; padding: 4mm 5mm; background: #fff; }
+  .card h4 { margin-top: 0; }
+  .card.soft { background: var(--canvas); }
+
+  .steps { counter-reset: s; list-style: none; padding-left: 0; }
+  .steps > li { counter-increment: s; position: relative; padding-left: 9mm; margin-bottom: 2.5mm; }
+  .steps > li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 6mm; height: 6mm; border-radius: 999px; background: var(--brand); color: #fff; font-weight: 700; font-size: 8.5pt; display: flex; align-items: center; justify-content: center; }
+
+  .tip { border-left: 3px solid var(--brand); background: var(--brand-light); padding: 3mm 4mm; border-radius: 0 8px 8px 0; margin: 3mm 0 5mm; font-size: 10pt; }
+  .tip b { color: var(--brand-dark); }
+  .warn { border-left: 3px solid var(--amber); background: var(--amber-bg); padding: 3mm 4mm; border-radius: 0 8px 8px 0; margin: 3mm 0 5mm; font-size: 10pt; }
+  .warn b { color: var(--amber); }
+  .path { display: inline-block; font-size: 9pt; font-weight: 600; background: var(--canvas); border: 1px solid var(--line); border-radius: 6px; padding: 0 6px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 9pt; margin: 2mm 0 5mm; }
+  th { text-align: left; font-weight: 600; color: var(--muted); border-bottom: 1px solid var(--line); padding: 2mm; font-size: 8.5pt; }
+  td { border-bottom: 1px solid var(--line); padding: 2mm; vertical-align: top; }
+  .toc { columns: 2; column-gap: 10mm; font-size: 10pt; }
+  .toc li { break-inside: avoid; }
+  .check li { list-style: none; position: relative; }
+  .check li::before { content: "☐"; position: absolute; left: -16px; color: var(--brand); }
+  .footer-note { font-size: 8.5pt; color: var(--muted); border-top: 1px solid var(--line); padding-top: 3mm; margin-top: 6mm; }
+</style>
+</head>
+<body>
+
+<!-- ============ PORTADA ============ -->
+<section class="cover">
+  <div>
+    <span class="badge">Manual para capacitadores</span>
+    <h1>Manual de uso<br>de la <span>plataforma veterinaria</span></h1>
+    <p class="lead">Cómo funciona cada módulo, paso a paso, para aprender a usar el sistema completo y enseñarlo a cada clínica.</p>
+  </div>
+  <img src="../comercial/img/inicio.png" alt="Pantalla de inicio">
+  <div class="meta">
+    <span>Versión del producto: MVP + agenda · Octubre de 2026</span>
+    <span>Se actualiza con cada nueva fase</span>
+  </div>
+</section>
+
+<!-- ============ CONTENIDO ============ -->
+<section class="page-break">
+  <div class="section-label">Contenido</div>
+  <h2>Cómo usar este manual</h2>
+  <p class="intro">El manual sigue el orden en que conviene aprender y enseñar: primero la puesta en marcha (lo que hace el administrador una sola vez) y después el trabajo diario de cada rol.</p>
+  <ol class="toc">
+    <li>Conceptos básicos</li>
+    <li>Ingreso, menú y perfil</li>
+    <li>Puesta en marcha de una clínica</li>
+    <li>Usuarios, roles y permisos</li>
+    <li>Clientes y pacientes</li>
+    <li>Ficha de la mascota e historia clínica</li>
+    <li>Citas, horarios y agenda en línea</li>
+    <li>Avisos por WhatsApp</li>
+    <li>Consultas</li>
+    <li>Inventario</li>
+    <li>Facturación y cobros</li>
+    <li>Pantalla de inicio</li>
+    <li>Auditoría</li>
+    <li>Flujo completo de un día</li>
+    <li>Plan de capacitación por rol</li>
+    <li>Problemas frecuentes</li>
+  </ol>
+  <div class="tip"><b>Para practicar:</b> use la clínica demo (<em>demo.162.214.196.37.nip.io</em>) con el usuario <em>admin@demo.test</em>. Cree datos de prueba con nombres evidentes (por ejemplo "Prueba Pérez") para no confundirlos con datos reales.</div>
+
+  <!-- 1 -->
+  <h3>1. Conceptos básicos</h3>
+  <ul>
+    <li><strong>Cada clínica tiene su propia dirección</strong>, por ejemplo <em>miclinica.plataforma.com</em>. Los usuarios de una clínica solo pueden entrar por la dirección de esa clínica, y nunca ven información de otra.</li>
+    <li><strong>Cliente</strong> es la persona responsable (el dueño). <strong>Paciente</strong> es la mascota. Un cliente puede tener varias mascotas.</li>
+    <li><strong>Consulta</strong> es cada atención médica. Las consultas, vacunas, procedimientos y notas forman la <strong>historia clínica</strong> de la mascota.</li>
+    <li><strong>Cada persona ve solo lo que su rol le permite.</strong> Si a alguien no le aparece un menú o un botón, normalmente es por permisos, no por un error.</li>
+    <li><strong>Lo importante no se borra:</strong> la historia clínica se archiva, las facturas se anulan y los productos se desactivan. Siempre queda rastro.</li>
+  </ul>
+</section>
+
+<!-- ============ 2 INGRESO ============ -->
+<section class="page-break">
+  <div class="section-label">2 · Primeros pasos</div>
+  <h2>Ingreso, menú y perfil</h2>
+  <div class="grid-2">
+    <div>
+      <h4>Entrar al sistema</h4>
+      <ol class="steps">
+        <li>Abra en el navegador la dirección de la clínica.</li>
+        <li>Escriba su <strong>email</strong> y <strong>contraseña</strong> y pulse <em>Ingresar</em>.</li>
+        <li>Si el usuario está desactivado o la clave es incorrecta, el sistema lo indica. Varios intentos fallidos seguidos bloquean el ingreso por unos minutos.</li>
+      </ol>
+      <h4>El menú lateral</h4>
+      <ul class="small">
+        <li><strong>Clínica:</strong> Inicio, Citas, Consultas, Pacientes, Clientes.</li>
+        <li><strong>Gestión:</strong> Inventario, Facturación.</li>
+        <li><strong>Administración:</strong> Usuarios, Configuración.</li>
+        <li>En el celular, el menú se abre con el botón ☰ de la parte superior.</li>
+        <li>Abajo aparece su nombre y rol: un clic lleva a <span class="path">Mi perfil</span>. El ícono de la flecha cierra la sesión.</li>
+      </ul>
+    </div>
+    <img class="shot" src="../comercial/img/login.png" alt="Pantalla de ingreso">
+  </div>
+  <h4>Mi perfil</h4>
+  <p>Cada persona puede cambiar su nombre, su email de ingreso y su <strong>contraseña</strong> (pide la actual y la nueva dos veces).</p>
+  <div class="warn"><b>Primera vez:</b> los usuarios que crea el administrador entran con una clave temporal. Enséñeles a cambiarla en <span class="path">Mi perfil</span> el primer día.</div>
+</section>
+
+<!-- ============ 3 PUESTA EN MARCHA ============ -->
+<section class="page-break">
+  <div class="section-label">3 · Administrador</div>
+  <h2>Puesta en marcha de una clínica</h2>
+  <p class="intro">Lista de lo que el administrador configura una sola vez, en este orden. Con esto la clínica queda lista para trabajar.</p>
+  <table class="avoid">
+    <thead><tr><th style="width:5%">#</th><th style="width:30%">Qué</th><th style="width:30%">Dónde</th><th>Para qué</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Datos de la clínica, logo y color</td><td>Configuración</td><td>Salen en la pantalla, el login, la agenda pública y todos los PDF.</td></tr>
+      <tr><td>2</td><td>Numeración y pie de factura</td><td>Configuración → Facturación</td><td>Prefijo y número desde el que arrancan las facturas.</td></tr>
+      <tr><td>3</td><td>Usuarios del equipo</td><td>Usuarios</td><td>Una cuenta por persona, con su rol.</td></tr>
+      <tr><td>4</td><td>Horarios de cada veterinario</td><td>Citas → Horarios</td><td>Sin horario, el veterinario no recibe citas en línea.</td></tr>
+      <tr><td>5</td><td>Agenda en línea y mensajes</td><td>Citas → Horarios</td><td>Duración de citas, anticipación y textos de WhatsApp.</td></tr>
+      <tr><td>6</td><td>Servicios y precios</td><td>Facturación → Servicios</td><td>Consulta, vacunación, cirugía, baño…</td></tr>
+      <tr><td>7</td><td>Productos del inventario</td><td>Inventario</td><td>Medicamentos, vacunas, alimentos e insumos con su stock.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Datos y marca de la clínica</h3>
+  <p><span class="path">Configuración</span> tiene tres partes:</p>
+  <ul>
+    <li><strong>Datos de la clínica:</strong> nombre comercial, razón social, NIT, dirección, teléfono y email.</li>
+    <li><strong>Color institucional:</strong> elija uno de los sugeridos o escriba el suyo. La vista previa muestra cómo quedará.</li>
+    <li><strong>Logo:</strong> suba una imagen (mejor cuadrada y con fondo transparente).</li>
+  </ul>
+
+  <h3>Numeración de facturas</h3>
+  <p>En <span class="path">Configuración → Facturación</span>:</p>
+  <ul>
+    <li><strong>Prefijo:</strong> por ejemplo <em>FV</em>.</li>
+    <li><strong>Siguiente número:</strong> el número desde el que se seguirá facturando (útil si la clínica venía de otro sistema).</li>
+    <li><strong>Pie de página:</strong> texto que aparece al final de cada factura en PDF (condiciones, cuentas bancarias, agradecimiento). Recuerde: es un comprobante interno, no factura electrónica DIAN.</li>
+  </ul>
+</section>
+
+<!-- ============ 4 USUARIOS ============ -->
+<section class="page-break">
+  <div class="section-label">4 · Administrador</div>
+  <h2>Usuarios, roles y permisos</h2>
+  <div class="grid-2">
+    <div>
+      <h4>Crear un usuario</h4>
+      <ol class="steps">
+        <li>Entre a <span class="path">Usuarios</span> y pulse <em>Nuevo usuario</em>.</li>
+        <li>Escriba el nombre completo, el email (será su usuario de ingreso) y una contraseña temporal.</li>
+        <li>Elija el <strong>rol</strong> y guarde.</li>
+        <li>Entréguele la dirección de la clínica, el email y la clave temporal.</li>
+      </ol>
+      <h4>Editar o bloquear</h4>
+      <ul class="small">
+        <li>Desde la lista se cambia el rol o se usa <strong>Restablecer contraseña</strong> si alguien la olvidó.</li>
+        <li>Desmarcar <strong>Usuario activo</strong> bloquea el acceso y <strong>cierra sus sesiones abiertas</strong> al instante (por ejemplo, cuando alguien deja de trabajar en la clínica).</li>
+        <li>La lista muestra el último ingreso de cada persona.</li>
+        <li>El sistema no deja desactivar ni quitarle el rol al último administrador.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Roles y permisos</h4>
+      <p class="small">En <span class="path">Usuarios → Roles y permisos</span> hay una matriz: cada fila es un permiso (ver, crear, editar, anular…) y cada columna un rol. Marque o desmarque y guarde.</p>
+      <ul class="small">
+        <li>Roles incluidos: <strong>administrador, veterinario, recepcionista, asistente y contador</strong>.</li>
+        <li><strong>Nuevo rol</strong> crea uno personalizado (por ejemplo "peluquero") para asignarle solo lo que necesita.</li>
+        <li>Los cambios aplican la próxima vez que la persona navegue o entre.</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Qué puede hacer cada rol (configuración inicial)</h3>
+  <table class="avoid">
+    <thead><tr><th>Módulo</th><th>Administrador</th><th>Veterinario</th><th>Recepcionista</th><th>Asistente</th><th>Contador</th></tr></thead>
+    <tbody>
+      <tr><td>Pacientes y clientes</td><td>Todo</td><td>Ver, crear, editar</td><td>Ver, crear, editar</td><td>Ver, crear, editar</td><td>Ver</td></tr>
+      <tr><td>Consultas e historia</td><td>Todo</td><td>Todo</td><td>Ver</td><td>Ver</td><td>—</td></tr>
+      <tr><td>Citas</td><td>Todo</td><td>Todo</td><td>Todo</td><td>Todo</td><td>—</td></tr>
+      <tr><td>Inventario</td><td>Todo</td><td>Ver</td><td>—</td><td>Ver</td><td>Ver</td></tr>
+      <tr><td>Facturación</td><td>Todo</td><td>Ver</td><td>Facturar y cobrar</td><td>—</td><td>Todo (incl. anular)</td></tr>
+      <tr><td>Usuarios y configuración</td><td>Todo</td><td>—</td><td>—</td><td>—</td><td>Ver configuración</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 5 CLIENTES Y PACIENTES ============ -->
+<section class="page-break">
+  <div class="section-label">5 · Recepción y médicos</div>
+  <h2>Clientes y pacientes</h2>
+  <div class="grid-2">
+    <div>
+      <h4>Registrar un cliente</h4>
+      <ol class="steps">
+        <li><span class="path">Clientes</span> → <em>Nuevo cliente</em>.</li>
+        <li>Nombre completo, tipo y número de documento, <strong>teléfono celular</strong>, email, dirección, ciudad y observaciones.</li>
+        <li>Guarde. Desde la ficha del cliente puede agregarle sus mascotas.</li>
+      </ol>
+      <div class="tip"><b>Clave:</b> registre siempre el <b>celular</b> completo. Sin él no se puede avisar por WhatsApp.</div>
+      <h4>Buscar</h4>
+      <p class="small">La búsqueda encuentra clientes por nombre, documento, teléfono o email, y mascotas por nombre o por el nombre del dueño.</p>
+    </div>
+    <div>
+      <h4>Registrar una mascota</h4>
+      <ol class="steps">
+        <li><span class="path">Pacientes</span> → <em>Nuevo paciente</em> (o desde la ficha del cliente).</li>
+        <li>Elija el <strong>dueño</strong>. Llene nombre, especie, raza, sexo, fecha de nacimiento, peso, color o señas, microchip y si está esterilizado(a).</li>
+        <li>Escriba las <strong>alergias</strong> si las tiene: se mostrarán en rojo en todas las pantallas de atención.</li>
+        <li>Agregue notas generales y, si quiere, una foto.</li>
+      </ol>
+      <p class="small muted">La edad se calcula sola con la fecha de nacimiento. El peso se actualiza con cada consulta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6 FICHA E HISTORIA ============ -->
+<section class="page-break">
+  <div class="section-label">6 · Médicos</div>
+  <h2>Ficha de la mascota e historia clínica</h2>
+  <p class="intro">Es la pantalla central del médico. Desde aquí se ve todo de la mascota y se inicia cualquier atención.</p>
+  <img class="shot" src="../comercial/img/ficha-mascota.png" alt="Ficha de la mascota">
+  <div class="grid-2">
+    <div>
+      <h4>Resumen de arriba</h4>
+      <ul class="small">
+        <li><strong>Alergias</strong> en rojo.</li>
+        <li><strong>Consulta en curso</strong>, con el botón <em>Continuar</em>.</li>
+        <li><strong>Próxima cita</strong> y <strong>control</strong> programado o vencido.</li>
+        <li><strong>Vacunas y desparasitaciones</strong> vencidas o por vencer.</li>
+      </ul>
+      <h4>Botones de la ficha</h4>
+      <ul class="small">
+        <li><strong>Nueva consulta:</strong> abre el formulario completo de atención.</li>
+        <li><strong>Agendar cita:</strong> crea una cita ya con esta mascota.</li>
+        <li><strong>+ Registro rápido:</strong> vacuna, desparasitación, procedimiento o nota, sin abrir una consulta. Para vacunas y desparasitaciones pide la <strong>próxima dosis</strong>.</li>
+        <li><strong>Editar:</strong> cambia los datos de la mascota (dueño, peso, alergias…). No modifica la historia.</li>
+        <li><strong>Historia en PDF:</strong> descarga la historia completa para entregar al dueño o a otro colega.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>La línea de tiempo</h4>
+      <ul class="small">
+        <li>Muestra en orden todo lo que se le ha hecho: consultas, vacunas, procedimientos, notas y evolución.</li>
+        <li>Se filtra por tipo: consultas, vacunas y desparasitación, procedimientos, notas.</li>
+        <li>Un registro equivocado <strong>se archiva</strong> (no se borra). Para verlo, marque <em>Mostrar registros archivados</em>.</li>
+      </ul>
+      <h4>Adjuntos</h4>
+      <ul class="small">
+        <li>Suba exámenes, radiografías, fotos, PDF, Word o Excel a la mascota o a una consulta.</li>
+        <li>Son privados: solo se abren con sesión iniciada en la clínica.</li>
+      </ul>
+      <div class="tip"><b>¿Consulta o registro rápido?</b> Si hubo examen, diagnóstico o fórmula, use <b>Nueva consulta</b>. Si solo se aplicó una vacuna o se dejó una nota, use <b>Registro rápido</b>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7 CITAS ============ -->
+<section class="page-break">
+  <div class="section-label">7 · Recepción</div>
+  <h2>Citas, horarios y agenda en línea</h2>
+  <p class="intro">La agenda muestra el día con <strong>una columna por veterinario</strong>. Las zonas rayadas son horas en que no atiende, y la línea roja marca la hora actual.</p>
+  <img class="shot" src="../comercial/img/agenda.png" alt="Agenda">
+  <div class="grid-2">
+    <div>
+      <h4>Crear una cita</h4>
+      <ol class="steps">
+        <li>Haga clic en un espacio libre de la columna del veterinario (o use <em>Nueva cita</em>).</li>
+        <li>Busque el <strong>paciente</strong>, confirme veterinario, fecha, hora y duración.</li>
+        <li>Escriba el motivo y, si quiere, notas internas. Guarde.</li>
+      </ol>
+      <p class="small">Las flechas <em>Día anterior / Día siguiente</em> y el selector de fecha mueven la agenda. El sistema <strong>no deja cruzar dos citas</strong> del mismo veterinario.</p>
+    </div>
+    <div>
+      <h4>Estados de una cita</h4>
+      <table class="small">
+        <tr><td><strong>Solicitada</strong></td><td>La pidió el cliente en línea. Hay que confirmarla.</td></tr>
+        <tr><td><strong>Confirmada</strong></td><td>Lista para atender.</td></tr>
+        <tr><td><strong>Atendida</strong></td><td>Se inició la consulta desde la cita.</td></tr>
+        <tr><td><strong>Cancelada</strong></td><td>No se hará.</td></tr>
+        <tr><td><strong>No asistió</strong></td><td>El cliente no llegó.</td></tr>
+      </table>
+      <p class="small">Al hacer clic en una cita se abre su detalle: confirmar, reprogramar, cambiar de veterinario, cancelar, marcar inasistencia, <strong>iniciar la consulta</strong> o avisar por WhatsApp.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page-break">
+  <h3 style="margin-top:0">Horarios de los veterinarios</h3>
+  <p>En <span class="path">Citas → Horarios</span> se define cuándo atiende cada veterinario: para cada día de la semana se agregan uno o varios bloques (por ejemplo 8:00–12:00 y 14:00–18:00). <em>Quitar</em> elimina un bloque.</p>
+
+  <h3>Agenda en línea para los clientes</h3>
+  <p>En la misma pantalla:</p>
+  <ul>
+    <li><strong>Permitir que los clientes soliciten citas en línea:</strong> enciende o apaga la página pública.</li>
+    <li><strong>Duración de cada cita</strong> (15, 30, 45 minutos…).</li>
+    <li><strong>Anticipación mínima (horas):</strong> por ejemplo 2, para que nadie reserve para dentro de 10 minutos.</li>
+    <li><strong>Reservar hasta (días adelante):</strong> hasta qué fecha se puede pedir.</li>
+  </ul>
+  <div class="grid-2">
+    <img class="shot" src="../comercial/img/agenda-publica.png" alt="Agenda pública">
+    <div>
+      <h4>Cómo la usa el cliente</h4>
+      <ol class="steps small">
+        <li>Abre el enlace <em>direccion-de-la-clinica/agendar</em> (se comparte por WhatsApp, Instagram o Google Maps).</li>
+        <li>Elige veterinario o "cualquiera disponible", el día y una hora libre.</li>
+        <li>Deja su nombre, celular, cédula, email, el nombre y la especie de la mascota, y el motivo.</li>
+        <li>No necesita cuenta ni contraseña.</li>
+      </ol>
+      <h4>Qué hace la clínica</h4>
+      <ul class="small">
+        <li>La solicitud aparece en la agenda como <strong>Solicitada</strong>.</li>
+        <li>Al <strong>confirmarla</strong>, si el cliente es nuevo, el sistema crea el cliente y la mascota. Si ya existía (por cédula o teléfono), la asocia.</li>
+        <li>Luego se le avisa por WhatsApp.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8 WHATSAPP ============ -->
+<section class="page-break">
+  <div class="section-label">8 · Recepción</div>
+  <h2>Avisos por WhatsApp</h2>
+  <p class="intro">El sistema no envía los mensajes solo: <strong>abre WhatsApp con el mensaje ya escrito</strong> y la persona pulsa "Enviar". El mensaje sale desde el WhatsApp de la clínica.</p>
+  <ol class="steps">
+    <li>Confirme, cree o cancele la cita. Aparece el botón <strong>Enviar por WhatsApp</strong>.</li>
+    <li>Se abre WhatsApp (en el computador pide WhatsApp Web o la aplicación) con el chat del cliente y el mensaje: mascota, fecha, hora, veterinario y dirección.</li>
+    <li>Revise y pulse <em>Enviar</em>.</li>
+  </ol>
+  <p>También hay un botón de <strong>recordatorio</strong> para enviar el día anterior a la cita.</p>
+  <h4>Personalizar los mensajes</h4>
+  <p>En <span class="path">Citas → Horarios</span>, sección <em>Mensajes de WhatsApp para el cliente</em>, se ajusta el texto de cada mensaje (confirmación, cancelación, recordatorio) con el tono de la clínica. Los datos de la cita se rellenan solos.</p>
+  <div class="warn"><b>Si el botón aparece gris:</b> el cliente no tiene un celular válido. Edite el cliente y escriba su número completo.</div>
+</section>
+
+<!-- ============ 9 CONSULTAS ============ -->
+<section class="page-break">
+  <div class="section-label">9 · Médicos</div>
+  <h2>Consultas</h2>
+  <p class="intro">Una consulta se puede iniciar desde la <strong>cita</strong> (lo ideal), desde la <strong>ficha de la mascota</strong> o desde <span class="path">Consultas → Nueva consulta</span>.</p>
+  <img class="shot" src="../comercial/img/consulta.png" alt="Formulario de consulta">
+  <div class="grid-2">
+    <div>
+      <h4>Lo que siempre se llena</h4>
+      <ul class="small">
+        <li><strong>Motivo de consulta</strong> y <strong>anamnesis / síntomas</strong> (lo que cuenta el dueño).</li>
+        <li><strong>Examen físico:</strong> peso, temperatura, frecuencia cardiaca y respiratoria, hallazgos.</li>
+        <li><strong>Diagnóstico</strong> y <strong>tratamiento</strong>.</li>
+      </ul>
+      <h4>Secciones que se abren si hacen falta</h4>
+      <ul class="small">
+        <li><strong>Medicamentos:</strong> nombre, dosis, frecuencia, duración, vía e indicaciones. Si el medicamento está en el inventario, elíjalo de la lista y marque <strong>"Lo lleva"</strong> con la cantidad para que luego se facture.</li>
+        <li><strong>Exámenes solicitados</strong> con observaciones. El resultado se registra después.</li>
+        <li><strong>Vacunas / desparasitación aplicadas:</strong> tipo, producto y próxima dosis.</li>
+        <li><strong>Indicaciones y control:</strong> indicaciones para el dueño, fecha de control y observaciones internas (no salen en documentos).</li>
+        <li><strong>Fecha y veterinario:</strong> por defecto, ahora y el médico que la registra.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Guardar o finalizar</h4>
+      <ul class="small">
+        <li><strong>Guardar y seguir después:</strong> la consulta queda <em>en curso</em> y se puede editar (por ejemplo, mientras llegan exámenes).</li>
+        <li><strong>Finalizar consulta:</strong> queda cerrada y ya no se edita, para proteger la historia. Después solo se agregan <strong>notas de evolución</strong> y resultados de exámenes.</li>
+      </ul>
+      <h4>Documentos</h4>
+      <ul class="small">
+        <li><strong>Fórmula médica / receta</strong> en PDF, con medicamentos, indicaciones, control y firma.</li>
+        <li><strong>Orden de exámenes</strong> en PDF.</li>
+        <li>Ambos llevan el logo, NIT y datos de la clínica.</li>
+      </ul>
+      <h4>Qué pasa automáticamente</h4>
+      <ul class="small">
+        <li>La cita de origen queda <strong>Atendida</strong>.</li>
+        <li>El peso actualiza el de la mascota.</li>
+        <li>Las vacunas aplicadas quedan en la historia con su próxima dosis.</li>
+      </ul>
+      <p class="small">La lista de <span class="path">Consultas</span> se filtra por fechas y por estado (en curso / finalizadas).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 INVENTARIO ============ -->
+<section class="page-break">
+  <div class="section-label">10 · Administración y bodega</div>
+  <h2>Inventario</h2>
+  <img class="shot" src="../comercial/img/inventario.png" alt="Inventario">
+  <div class="grid-2">
+    <div>
+      <h4>Crear un producto</h4>
+      <ol class="steps small">
+        <li><span class="path">Inventario</span> → <em>Nuevo producto</em>.</li>
+        <li>Nombre, código, unidad (tableta, frasco, kg…), categoría y proveedor.</li>
+        <li><strong>Precios:</strong> costo de compra, precio de venta e IVA (0, 5 o 19%). El margen se calcula solo.</li>
+        <li><strong>Existencias:</strong> stock inicial, stock mínimo (para la alerta) y próximo vencimiento.</li>
+      </ol>
+      <p class="small">Desmarcar <strong>Producto activo</strong> lo oculta sin perder su historial. Los productos no se borran.</p>
+      <h4>Alertas (filtros arriba de la lista)</h4>
+      <ul class="small">
+        <li><strong>Stock bajo:</strong> igual o por debajo del mínimo.</li>
+        <li><strong>Por vencer (30 días).</strong></li>
+        <li><strong>Vencidos con existencias.</strong></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Movimientos (desde el detalle del producto)</h4>
+      <table class="small">
+        <tr><td><strong>Entrada</strong></td><td>Compra al proveedor: cantidad, costo unitario, factura o referencia, lote y vencimiento del lote.</td></tr>
+        <tr><td><strong>Salida</strong></td><td>Uso interno, vencido, dañado o devolución, con su motivo.</td></tr>
+        <tr><td><strong>Ajuste</strong></td><td>Conteo físico: escriba lo que hay realmente en la bodega y el sistema registra la diferencia.</td></tr>
+      </table>
+      <ul class="small">
+        <li>Las <strong>ventas se descuentan solas</strong> al emitir la factura. No registre una salida por una venta.</li>
+        <li>El stock nunca queda negativo.</li>
+        <li><span class="path">Inventario → Movimientos</span> es el kardex general: todos los movimientos, con fecha, usuario y saldo, filtrables por fechas.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11 FACTURACIÓN ============ -->
+<section class="page-break">
+  <div class="section-label">11 · Recepción y contabilidad</div>
+  <h2>Facturación y cobros</h2>
+  <img class="shot" style="max-height:58mm" src="../comercial/img/factura.png" alt="Factura">
+  <div class="grid-2">
+    <div>
+      <h4>Servicios</h4>
+      <p class="small"><span class="path">Facturación → Servicios</span>: lo que la clínica cobra además de los productos (consulta, vacunación, cirugía, baño…). Cada uno tiene nombre, precio e IVA. Si se marca <strong>Agregarlo automáticamente al facturar una consulta</strong>, entra solo en la cuenta (útil para el valor de la consulta).</p>
+      <h4>Facturar una consulta</h4>
+      <ol class="steps small">
+        <li>En la consulta pulse <strong>Facturar</strong>.</li>
+        <li>Se crea un <strong>borrador</strong> con el servicio de consulta y los medicamentos marcados "Lo lleva".</li>
+        <li>Revise, agregue o quite líneas, ajuste cantidades y descuentos, y escriba observaciones si hace falta.</li>
+        <li>Pulse <strong>Emitir</strong>. Puede registrar el pago en ese mismo momento.</li>
+      </ol>
+      <h4>Venta de mostrador</h4>
+      <p class="small"><span class="path">Facturación → Nueva factura</span>: elija cliente (y mascota si aplica) y agregue productos o servicios.</p>
+    </div>
+    <div>
+      <h4>Estados</h4>
+      <table class="small">
+        <tr><td><strong>Borrador</strong></td><td>Se puede editar. No tiene número ni descuenta inventario.</td></tr>
+        <tr><td><strong>Emitida</strong></td><td>Tiene número consecutivo, descuenta el inventario y ya no se edita.</td></tr>
+        <tr><td><strong>Anulada</strong></td><td>Exige un motivo, devuelve el stock y queda registrada. Nunca se borra.</td></tr>
+      </table>
+      <h4>Pagos</h4>
+      <ul class="small">
+        <li><strong>Registrar pago:</strong> valor recibido, forma de pago (efectivo, tarjeta, transferencia, Nequi, Daviplata) y referencia o comprobante.</li>
+        <li>Se aceptan <strong>abonos parciales</strong>: la factura muestra lo pagado y el saldo.</li>
+        <li>El filtro <strong>Por cobrar</strong> muestra las facturas con saldo pendiente.</li>
+      </ul>
+      <h4>PDF</h4>
+      <p class="small">Cada factura se descarga en PDF con la marca de la clínica y el pie configurado.</p>
+      <div class="warn small"><b>Si no deja emitir:</b> algún producto no tiene stock suficiente. Registre la entrada en el inventario o ajuste la cantidad.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12-13 INICIO Y AUDITORÍA ============ -->
+<section class="page-break">
+  <div class="section-label">12 · Todos</div>
+  <h2>Pantalla de inicio</h2>
+  <p>Cada persona ve un tablero según su rol:</p>
+  <ul>
+    <li><strong>Citas de hoy</strong> y <strong>próximas citas</strong>.</li>
+    <li><strong>Consultas en curso</strong>.</li>
+    <li><strong>Ventas del día y del mes</strong>, y <strong>cartera por cobrar</strong> (solo quien tiene permiso de facturación).</li>
+    <li><strong>Alertas de inventario</strong>.</li>
+    <li>Accesos rápidos a lo que más se usa.</li>
+  </ul>
+
+  <div class="section-label" style="margin-top:8mm">13 · Administrador</div>
+  <h2>Auditoría</h2>
+  <p><span class="path">Configuración → Auditoría</span> muestra <strong>quién hizo qué, cuándo y desde dónde</strong>: ingresos (y fallidos), facturas emitidas y anuladas, pagos, ajustes de inventario, cambios de precio, permisos y configuración. En los cambios muestra el valor <strong>antes y después</strong>. Se filtra por fechas.</p>
+  <div class="tip"><b>Uso típico:</b> "¿Quién anuló esta factura?" o "¿Quién cambió el precio de la vacuna?". Se responde aquí en segundos.</div>
+
+  <div class="section-label" style="margin-top:8mm">14 · Práctica integradora</div>
+  <h2>Flujo completo de un día</h2>
+  <p>Ejercicio para cerrar la capacitación. Hágalo de principio a fin con datos de prueba:</p>
+  <ol class="steps">
+    <li><strong>Agenda en línea:</strong> desde un celular abra <em>/agendar</em> y pida una cita como cliente nuevo.</li>
+    <li><strong>Confirmar:</strong> en <span class="path">Citas</span> confirme la solicitud y avise por WhatsApp.</li>
+    <li><strong>Atender:</strong> en la cita pulse <em>Iniciar consulta</em>. Llene signos, diagnóstico y un medicamento del inventario con "Lo lleva".</li>
+    <li><strong>Documentos:</strong> descargue la receta en PDF.</li>
+    <li><strong>Finalizar</strong> la consulta.</li>
+    <li><strong>Facturar:</strong> pulse <em>Facturar</em>, emita y registre el pago.</li>
+    <li><strong>Verificar:</strong> el stock del medicamento bajó, la cita está Atendida, la consulta aparece en la historia y la venta en el inicio.</li>
+  </ol>
+</section>
+
+<!-- ============ 15 PLAN DE CAPACITACIÓN ============ -->
+<section class="page-break">
+  <div class="section-label">15 · Para el capacitador</div>
+  <h2>Plan de capacitación por rol</h2>
+  <p class="intro">Capacite a cada grupo solo en lo que usa. Sesiones cortas y con práctica funcionan mejor que una sola sesión larga.</p>
+  <table>
+    <thead><tr><th style="width:18%">Rol</th><th style="width:12%">Duración</th><th>Temas</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Administrador</strong></td><td>2 h</td><td>Puesta en marcha completa (sección 3), usuarios y permisos, horarios, servicios, inventario inicial, auditoría. Luego el flujo de un día.</td></tr>
+      <tr><td><strong>Veterinario</strong></td><td>1 h</td><td>Agenda del día, ficha de la mascota, registro rápido, consulta completa (guardar vs. finalizar), receta y orden de exámenes, adjuntos, notas de evolución.</td></tr>
+      <tr><td><strong>Recepcionista</strong></td><td>1 h 30</td><td>Clientes y pacientes, citas y estados, solicitudes en línea, WhatsApp, facturar consulta y venta de mostrador, pagos y abonos.</td></tr>
+      <tr><td><strong>Asistente</strong></td><td>45 min</td><td>Clientes y pacientes, citas, consulta de inventario, registro rápido si se le da permiso.</td></tr>
+      <tr><td><strong>Contador</strong></td><td>45 min</td><td>Facturas, filtros por fecha y por cobrar, pagos, anulaciones con motivo, kardex, auditoría.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Lista de chequeo al terminar</h3>
+  <div class="grid-2">
+    <ul class="check small">
+      <li>Cada persona entró con su usuario y cambió su contraseña.</li>
+      <li>Logo, color y datos legales configurados.</li>
+      <li>Prefijo y numeración de facturas definidos.</li>
+      <li>Horarios de todos los veterinarios cargados.</li>
+    </ul>
+    <ul class="check small">
+      <li>Servicios con precio creados.</li>
+      <li>Productos principales con stock real.</li>
+      <li>Enlace de agenda en línea compartido en las redes de la clínica.</li>
+      <li>Flujo completo de un día practicado sin ayuda.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 16 PROBLEMAS FRECUENTES ============ -->
+<section class="page-break">
+  <div class="section-label">16 · Soporte</div>
+  <h2>Problemas frecuentes</h2>
+  <table>
+    <thead><tr><th style="width:38%">Situación</th><th>Qué hacer</th></tr></thead>
+    <tbody>
+      <tr><td>"No me aparece un menú o un botón"</td><td>Es un tema de permisos. El administrador lo revisa en <em>Usuarios → Roles y permisos</em>.</td></tr>
+      <tr><td>"No puedo entrar"</td><td>Verifique la dirección de la clínica (no la de otra), el email y la clave. El administrador puede restablecer la contraseña o revisar que el usuario esté activo.</td></tr>
+      <tr><td>"No puedo editar la consulta"</td><td>Está finalizada. Agregue una nota de evolución en lugar de editarla.</td></tr>
+      <tr><td>"Me equivoqué en un registro de la historia"</td><td>Archívelo y créelo de nuevo. El archivado sigue consultable.</td></tr>
+      <tr><td>"No deja emitir la factura"</td><td>Falta stock de algún producto. Registre la entrada o corrija la cantidad.</td></tr>
+      <tr><td>"Me equivoqué en una factura emitida"</td><td>Anúlela con el motivo (devuelve el stock) y haga una nueva.</td></tr>
+      <tr><td>"El botón de WhatsApp está gris"</td><td>El cliente no tiene celular válido. Edítelo.</td></tr>
+      <tr><td>"El cliente no ve horas en la agenda en línea"</td><td>Revise que la agenda esté encendida, que el veterinario tenga horario ese día y la anticipación mínima.</td></tr>
+      <tr><td>"La cita no se deja crear a esa hora"</td><td>Ese veterinario ya tiene una cita que se cruza.</td></tr>
+      <tr><td>"El stock no coincide con la bodega"</td><td>Haga un <em>Ajuste</em> con el conteo real. Revise el kardex para ver qué pasó.</td></tr>
+    </tbody>
+  </table>
+  <div class="warn"><b>Aún no disponible</b> (no prometer): factura electrónica DIAN, envío automático de WhatsApp, recordatorios por email, reportes detallados con exportación a Excel, manejo de varias sedes.</div>
+  <p class="footer-note">Las imágenes son capturas reales con datos de demostración. Este manual se actualiza con cada nueva fase del producto.</p>
+</section>
+
+</body>
+</html>
